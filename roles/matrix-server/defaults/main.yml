@@ -267,3 +267,7 @@ matrix_ssl_use_staging: false
 
 # Specifies when to attempt to retrieve new SSL certificates from Let's Encrypt.
 matrix_ssl_renew_cron_time_definition: "15 4 */5 * *"
+
+# Workaround for https://github.com/ansible/ansible/issues/32926
+# docker_network doesn't create network if name is substring of existing network
+get_docker_network: $(docker network ls -q -f name=^{{ matrix_docker_network }}$)
